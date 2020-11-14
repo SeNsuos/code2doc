@@ -43,6 +43,7 @@ export const parseCode = (filePath: string | Array<string>): IParseResult => {
 /**
  * Convert code into object according to file path
  * @param {string} code file code string
+ * @param {IParseResult} result object
  */
 export const convertCode2Object = (code: string, result: IParseResult): void => {
   const ast = Parser.parse(code, {

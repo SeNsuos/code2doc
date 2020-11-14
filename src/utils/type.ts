@@ -1,8 +1,14 @@
 /**
  * Type inference
  * @param {string} type Type
+ * @return {Function}
  */
 const getIsType = <T = any>(type: string) => {
+  /**
+   * Type inference
+   * @param {any} target target
+   * @return {boolean}
+   */
   return <R>(target: any): target is (R extends T ? R : T) => {
     return Object.prototype.toString.call(target) === `[object ${type}]`;
   };
