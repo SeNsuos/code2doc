@@ -81,10 +81,10 @@ export const convertCode2Object = (code: string, result: IParseResult): void => 
 /**
  * convert TsTypeParameters to js object
  * @param {babelTypes.TSTypeParameterDeclaration | babelTypes.TSTypeParameterInstantiation} typeParameters
- * @returns {Array<ITypeParameter>}
+ * @return {Array<ITypeParameter>}
  */
 export const handleTSTypeParameters = (typeParameters: babelTypes.TSTypeParameterDeclaration | babelTypes.TSTypeParameterInstantiation): Array<ITypeParameter> => {
-  let typeParametersArr: ITypeParameter[] = [];
+  const typeParametersArr: ITypeParameter[] = [];
   const {params = [], type} = typeParameters;
 
   if (type === 'TSTypeParameterDeclaration' && typeUtils.isObject<babelTypes.TSTypeParameterDeclaration>(typeParameters)) {
@@ -107,6 +107,6 @@ export const handleTSTypeParameters = (typeParameters: babelTypes.TSTypeParamete
 /**
  * get the name from identifier
  * @param {babelTypes.Identifier} identifier
- * @returns {string}
+ * @return {string}
  */
 export const handleIdentifier = (identifier: babelTypes.Identifier): string => identifier.name;
