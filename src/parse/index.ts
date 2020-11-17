@@ -1,4 +1,4 @@
-// import { types as babelTypes } from '@babel/core';
+import {types as babelTypes} from '@babel/core';
 import traverse from '@babel/traverse';
 import Parser from '@babel/parser';
 import fs from 'fs';
@@ -65,7 +65,48 @@ export const convertCode2Object = (code: string, result: IParseResult): void => 
 
   traverse(ast, {
     TSInterfaceDeclaration(path) {
+      const {
+        id,
+        // body: {
+        //   body = [],
+        // },
+        typeParameters,
+      } = path.node;
 
+      result.interfaces[handleIdentifier(id)] = {} as SimpleResult;
+      if (typeParameters !== null) result.interfaces[handleIdentifier(id)].typeParameters = handleTSTypeParameters(typeParameters);
     },
   });
 };
+/**
+ * convert TsTypeParameters to js object
+ * @param {babelTypes.TSTypeParameterDeclaration | babelTypes.TSTypeParameterInstantiation} typeParameters
+ * @returns {Array<ITypeParameter>}
+ */
+export const handleTSTypeParameters = (typeParameters: babelTypes.TSTypeParameterDeclaration | babelTypes.TSTypeParameterInstantiation): Array<ITypeParameter> => {
+  let typeParametersArr: ITypeParameter[] = [];
+  const {params = [], type} = typeParameters;
+
+  if (type === 'TSTypeParameterDeclaration' && typeUtils.isObject<babelTypes.TSTypeParameterDeclaration>(typeParameters)) {
+    params.forEach((p: babelTypes.TSTypeParameter | babelTypes.TSType) => {
+      if (p && p.type === 'TSTypeParameter') {
+        // TODO handle constraint
+        // const { name, constraint, default: dft } = p;
+        const {name, default: dft} = p;
+        typeParametersArr.push(`${name} ${dft ? ` = ${dft}` : ''}`);
+      } else if (p) {
+
+      }
+    });
+  } else if (type === 'TSTypeParameterInstantiation') {
+
+  }
+
+  return typeParametersArr;
+};
+/**
+ * get the name from identifier
+ * @param {babelTypes.Identifier} identifier
+ * @returns {string}
+ */
+export const handleIdentifier = (identifier: babelTypes.Identifier): string => identifier.name;

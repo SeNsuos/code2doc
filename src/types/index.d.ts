@@ -8,9 +8,17 @@ interface IParseResult {
 }
 
 interface IInterfaces {
-
+  [name: string]: SimpleResult;
 }
 
 interface ITypes {
+
+}
+
+interface SimpleResult {
+  typeParameters: ITypeParameter[];
+}
+
+interface ITypeParameter {
 
 }
