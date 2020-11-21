@@ -6,7 +6,7 @@
   "types": "src/types",
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .ts --fix src/",
+    "lint": "eslint --ext .ts src/",
     "commit": "git cz"
   },
   "repository": {
@@ -42,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
+      "pre-commit": "",
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
     }
   },

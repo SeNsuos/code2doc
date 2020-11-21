@@ -21,6 +21,9 @@
         "no-extra-parens": "warn",
         "array-bracket-spacing": "error",
         "camelcase":"error",
-        "max-len": "off"
+        "max-len": "off",
+        "valid-jsdoc": "off",
+        "new-cap": "off",
+        "brace-style": "off"
     }
 }

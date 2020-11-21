@@ -1,24 +1,42 @@
-/**
- * @file interfaces
- */
+import { types } from "@babel/core";
 
-interface IParseResult {
-  interfaces: IInterfaces;
-  types: ITypes;
+export interface BackObj {
+  interfaces: BackObjInterfaces;
+  types: BackObjTypes;
 }
 
-interface IInterfaces {
-  [name: string]: SimpleResult;
+export interface BackObjInterfaces {
+  [x: string]: ObjectCommonType;
+  typeParameters?: any;
 }
 
-interface ITypes {
+export interface BackObjTypes extends BackObjInterfaces {}
 
+export interface ObjectCommonType extends CommonType {
+  name?: string;
 }
 
-interface SimpleResult {
-  typeParameters: ITypeParameter[];
+export interface CommonType {
+  type?: string;
+  valueName?: string;
+  typeParameters?: null | Array<CommonType | ObjectCommonType | string>;
+  unionAndIntersection?: Array<CommonType | ObjectCommonType | string>;
+  optional?: boolean;
+  leadingComments?: readonly types.Comment[]
 }
 
-interface ITypeParameter {
+export interface SplitJsdocFromArrReturn<T> {
+  name: keyof T;
+  type?: string;
+  value: string | boolean;
+  description?: string;
+}
 
+export interface HandleCommentReturn<T = any> {
+  [name: string]: T;
+  params?: any;
+}
+
+export interface CommentParseReturn<T> extends HandleCommentReturn<T> {
+  params?: any;
 }
